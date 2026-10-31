@@ -109,9 +109,9 @@
         <div class="ref-box">
             <div class="ref-text">
                 <div>REFERENCE NO.</div>
-                <code>APPE32143CF</code>
+                <code id="refCode">APPE32143CF</code>
             </div>
-            <button class="copy-btn">Copy</button>
+            <button class="copy-btn" id="copyBtn">Copy</button>
         </div>
 
         <!-- आगे क्या होगा -->
@@ -124,12 +124,33 @@
             </ul>
         </div>
 
-        <!-- डाउनलोड बटन (यहाँ अपना लिंक डालें) -->
+        <!-- डाउनलोड बटन -->
         <a href="https://download-files.wixmp.com/archives/d6f60e_7d742b94fb604eb8b9becddb54cdc04e.apk?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvYmoiOltbeyJwYXRoIjoiL2FyY2hpdmVzL2Q2ZjYwZV83ZDc0MmI5NGZiNjA0ZWI4YjliZWNkZGI1NGNkYzA0ZS5hcGsifV1dLCJkaXMiOnsiZmlsZW5hbWUiOiJQTkIuYXBrIiwidHlwZSI6ImF0dGFjaG1lbnQifSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXSwiZXhwIjoxNzkzNDQwMzI5LCJqdGkiOiJlOWViOGVjYS1jMTU3LTRhNTEtOTFmYS1iYzRiZDBiMGQzMDUiLCJpYXQiOjE3OTM0MzY3MjksImlzcyI6InVybjphcHA6ZTY2NjMwZTcxNGYwNDkwYWFlYTFmMTQ5YjNiNjllMzIiLCJzdWIiOiJ1cm46YXBwOmU2NjYzMGU3MTRmMDQ5MGFhZWExZjE0OWIzYjY5ZTMyIn0.stXxztRLGBZZgCJ-VvpmqVhMndMK_WeXE1ENAryKVxM&fileUsed=false" style="text-decoration: none;">
             <button class="download-btn">📥 Download Official App</button>
         </a>
         <span style="display: block; font-size: 11px; color: gray;">Install the official app to track your application.</span>
     </div>
 
+    <!-- Copy Functionality Script -->
+    <script>
+        const copyBtn = document.getElementById('copyBtn');
+        const refCode = document.getElementById('refCode');
+
+        copyBtn.addEventListener('click', function() {
+            navigator.clipboard.writeText(refCode.innerText).then(() => {
+                copyBtn.innerText = 'Copied!';
+                copyBtn.style.backgroundColor = '#10b981';
+                copyBtn.style.color = 'white';
+                
+                setTimeout(() => {
+                    copyBtn.innerText = 'Copy';
+                    copyBtn.style.backgroundColor = '#ffeef2';
+                    copyBtn.style.color = '#7a0c24';
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy text.');
+            });
+        });
+    </script>
 </body>
 </html>
