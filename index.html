@@ -13,7 +13,6 @@
             color: #333;
         }
         
-        /* 1. मैरून हेडर सेक्शन */
         .header {
             background-color: #7a0c24;
             color: white;
@@ -24,7 +23,6 @@
         .header h2 { margin: 10px 0 5px 0; font-size: 22px; }
         .header p { margin: 0; font-size: 13px; opacity: 0.8; }
 
-        /* 2. ऐप्लीकेशन फ़ॉर्म कंटेनर */
         .form-container {
             background-color: white;
             margin: -30px 15px 25px 15px;
@@ -59,7 +57,6 @@
             cursor: pointer;
         }
 
-        /* 3. एनुअल फ़ी (Annual Fee) सेक्शन */
         .fee-section {
             background-color: #1e293b;
             color: white;
@@ -81,7 +78,6 @@
         .fee-box .amt { color: #f4be41; font-weight: bold; font-size: 18px; }
         .fee-box .lbl { font-size: 11px; color: #ccc; margin-top: 5px; }
 
-        /* 4. बेनिफिट्स (Benefits) लिस्ट सेक्शन */
         .benefits-section { margin: 25px 15px; }
         .benefits-section h4 { font-size: 18px; margin-bottom: 15px; }
         .benefit-card {
@@ -104,26 +100,62 @@
         }
         .benefit-text h5 { margin: 0 0 4px 0; font-size: 15px; }
         .benefit-text p { margin: 0; font-size: 12px; color: gray; }
+
+        /* Loading Popup Modal Styles */
+        #loadingModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            width: 85%;
+            max-width: 350px;
+            padding: 30px 20px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #7a0c24;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .modal-content h3 { margin: 10px 0 5px 0; font-size: 20px; color: #111; }
+        .modal-content p { color: #666; font-size: 13px; margin-bottom: 20px; }
+        .step-list { text-align: left; font-size: 13px; color: #444; }
+        .step-item { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; opacity: 0.4; transition: 0.3s; }
+        .step-item.active { opacity: 1; font-weight: bold; color: #7a0c24; }
+        .step-item.done { opacity: 1; color: #10b981; }
     </style>
 </head>
 <body>
 
-    <!-- टॉप हेडर -->
     <div class="header">
         <div class="sub">PREMIUM CARD</div>
         <h2>Premium Credit Card Lifetime Free</h2>
         <p>Exclusive financial benefits with zero annual maintenance charges.</p>
     </div>
 
-    <!-- ऐप्लीकेशन फ़ॉर्म -->
-    <form action="success.html" method="GET" class="form-container">
+    <form id="applyForm" class="form-container">
         <h3>Apply Now</h3>
         <p style="color: gray; font-size: 13px; margin-top: -8px; margin-bottom: 20px;">Fill details to check your eligibility</p>
         
         <div class="input-group">
             <label>Full Name *</label>
             <span>As printed on your PAN card</span>
-            <input type="text" placeholder="e.g. Rahul Kumar Sharma" required>
+            <input type="text" id="fullName" placeholder="e.g. Rahul Kumar Sharma" required>
         </div>
 
         <div class="input-group">
@@ -146,7 +178,20 @@
         <button type="submit" class="submit-btn">Submit Application →</button>
     </form>
 
-    <!-- फीस की जानकारी -->
+    <!-- Loading Popup Modal HTML -->
+    <div id="loadingModal">
+        <div class="modal-content">
+            <div class="spinner"></div>
+            <h3>Success!</h3>
+            <p>Redirecting...</p>
+            <div class="step-list">
+                <div class="step-item active" id="step1">● Validating your details...</div>
+                <div class="step-item" id="step2">● Checking eligibility...</div>
+                <div class="step-item" id="step3">● Securing your application...</div>
+            </div>
+        </div>
+    </div>
+
     <div class="fee-section">
         <div class="fee-title">ANNUAL FEE</div>
         <div class="fee-main">₹0 — Lifetime</div>
@@ -166,10 +211,8 @@
         </div>
     </div>
 
-    <!-- शानदार फायदे -->
     <div class="benefits-section">
         <h4>Amazing Benefits</h4>
-        
         <div class="benefit-card">
             <div class="benefit-icon">✈️</div>
             <div class="benefit-text">
@@ -177,7 +220,6 @@
                 <p>Relax in style across 1200+ airport lounges</p>
             </div>
         </div>
-
         <div class="benefit-card">
             <div class="benefit-icon">🛍️</div>
             <div class="benefit-text">
@@ -185,50 +227,87 @@
                 <p>Enjoy instant discount at top brands & online stores</p>
             </div>
         </div>
-
-        <div class="benefit-card">
-            <div class="benefit-icon">📱</div>
-            <div class="benefit-text">
-                <h5>UPI Payment</h5>
-                <p>Seamless payments with extra rewards</p>
-            </div>
-        </div>
-
-        <div class="benefit-card">
-            <div class="benefit-icon">🎬</div>
-            <div class="benefit-text">
-                <h5>Buy 1 Get 1 Movie Ticket</h5>
-                <p>Enjoy blockbuster offers on movie tickets</p>
-            </div>
-        </div>
     </div>
 
-    <!-- JavaScript Auto-formatting Script -->
+    <!-- JavaScript Validation & Animation Script -->
     <script>
-        // Mobile Number formatting (+91 lock & only numbers)
         const mobileInput = document.getElementById('mobile');
-        mobileInput.addEventListener('input', function (e) {
-            let val = mobileInput.value;
-            if (!val.startsWith("+91 ")) {
+        mobileInput.addEventListener('input', function () {
+            if (!mobileInput.value.startsWith("+91 ")) {
                 mobileInput.value = "+91 ";
             }
         });
 
-        // Date of Birth auto slash (DD/MM/YYYY)
         const dobInput = document.getElementById('dob');
-        dobInput.addEventListener('input', function (e) {
+        dobInput.addEventListener('input', function () {
             let cleaned = dobInput.value.replace(/\D/g, '');
             let formatted = '';
-            if (cleaned.length > 0) {
-                formatted += cleaned.substring(0, 2);
-            }
-            if (cleaned.length >= 3) {
-                formatted += '/' + cleaned.substring(2, 4);
-            }
-            if (cleaned.length >= 5) {
-                formatted += '/' + cleaned.substring(4, 8);
-            }
+            if (cleaned.length > 0) formatted += cleaned.substring(0, 2);
+            if (cleaned.length >= 3) formatted += '/' + cleaned.substring(2, 4);
+            if (cleaned.length >= 5) formatted += '/' + cleaned.substring(4, 8);
             dobInput.value = formatted;
+        });
+
+        const form = document.getElementById('applyForm');
+        const loadingModal = document.getElementById('loadingModal');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // 1. Mobile number validation (Must be exactly 10 digits after +91 )
+            let mobileVal = mobileInput.value.replace("+91 ", "").trim();
+            if (mobileVal.length !== 10 || isNaN(mobileVal)) {
+                alert("Kripya sahi 10-digit ka mobile number darj karein!");
+                mobileInput.focus();
+                return;
+            }
+
+            // 2. Date of Birth validation & Age Check (Must be 18+)
+            let dobVal = dobInput.value;
+            let parts = dobVal.split('/');
+            if (parts.length !== 3) {
+                alert("Kripya sahi Date of Birth format (DD/MM/YYYY) mein bharein!");
+                dobInput.focus();
+                return;
+            }
+
+            let day = parseInt(parts[0], 10);
+            let month = parseInt(parts[1], 10) - 1;
+            let year = parseInt(parts[2], 10);
+            let birthDate = new Date(year, month, day);
+            
+            let today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            let m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            if (isNaN(age) || age < 18) {
+                alert("Aapki umr 18 varsh se kam hai! Aap is card ke liye eligible nahi hain.");
+                dobInput.focus();
+                return;
+            }
+
+            // Agar sabhi details sahi hain, toh loading modal dikhayein aur steps run karein
+            loadingModal.style.display = 'flex';
+
+            setTimeout(() => {
+                document.getElementById('step1').classList.remove('active');
+                document.getElementById('step1').classList.add('done');
+                document.getElementById('step2').classList.add('active');
+            }, 1000);
+
+            setTimeout(() => {
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('step2').classList.add('done');
+                document.getElementById('step3').classList.add('active');
+            }, 2000);
+
+            setTimeout(() => {
+                // Redirect to success page
+                window.location.href = "success.html";
+            }, 3000);
         });
     </script>
 </body>
