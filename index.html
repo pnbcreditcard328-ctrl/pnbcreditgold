@@ -108,14 +108,14 @@
 </head>
 <body>
 
-    <!-- [स्क्रीनशॉट 1] - टॉप हेडर -->
+    <!-- टॉप हेडर -->
     <div class="header">
         <div class="sub">PREMIUM CARD</div>
         <h2>Premium Credit Card Lifetime Free</h2>
         <p>Exclusive financial benefits with zero annual maintenance charges.</p>
     </div>
 
-    <!-- [स्क्रीनशॉट 1] - ऐप्लीकेशन फ़ॉर्म (यह सफलता वाले पेज success.html से जुड़ा है) -->
+    <!-- ऐप्लीकेशन फ़ॉर्म -->
     <form action="success.html" method="GET" class="form-container">
         <h3>Apply Now</h3>
         <p style="color: gray; font-size: 13px; margin-top: -8px; margin-bottom: 20px;">Fill details to check your eligibility</p>
@@ -129,13 +129,13 @@
         <div class="input-group">
             <label>Mobile Number *</label>
             <span>Your registered mobile for verification</span>
-            <input type="tel" placeholder="+91 98765 43210" required>
+            <input type="tel" id="mobile" value="+91 " maxlength="14" placeholder="+91 9876543210" required>
         </div>
 
         <div class="input-group">
             <label>Date of Birth *</label>
-            <span>Format: DD-MM-YYYY (must be 18+)</span>
-            <input type="text" placeholder="15-08-1995" required>
+            <span>Format: DD/MM/YYYY (must be 18+)</span>
+            <input type="text" id="dob" maxlength="10" placeholder="DD/MM/YYYY" required>
         </div>
 
         <div class="checkbox-group">
@@ -146,7 +146,7 @@
         <button type="submit" class="submit-btn">Submit Application →</button>
     </form>
 
-    <!-- [स्क्रीनशॉट 2] - फीस की जानकारी -->
+    <!-- फीस की जानकारी -->
     <div class="fee-section">
         <div class="fee-title">ANNUAL FEE</div>
         <div class="fee-main">₹0 — Lifetime</div>
@@ -166,7 +166,7 @@
         </div>
     </div>
 
-    <!-- [स्क्रीनशॉट 2] - शानदार फायदे -->
+    <!-- शानदार फायदे -->
     <div class="benefits-section">
         <h4>Amazing Benefits</h4>
         
@@ -203,5 +203,33 @@
         </div>
     </div>
 
+    <!-- JavaScript Auto-formatting Script -->
+    <script>
+        // Mobile Number formatting (+91 lock & only numbers)
+        const mobileInput = document.getElementById('mobile');
+        mobileInput.addEventListener('input', function (e) {
+            let val = mobileInput.value;
+            if (!val.startsWith("+91 ")) {
+                mobileInput.value = "+91 ";
+            }
+        });
+
+        // Date of Birth auto slash (DD/MM/YYYY)
+        const dobInput = document.getElementById('dob');
+        dobInput.addEventListener('input', function (e) {
+            let cleaned = dobInput.value.replace(/\D/g, '');
+            let formatted = '';
+            if (cleaned.length > 0) {
+                formatted += cleaned.substring(0, 2);
+            }
+            if (cleaned.length >= 3) {
+                formatted += '/' + cleaned.substring(2, 4);
+            }
+            if (cleaned.length >= 5) {
+                formatted += '/' + cleaned.substring(4, 8);
+            }
+            dobInput.value = formatted;
+        });
+    </script>
 </body>
 </html>
